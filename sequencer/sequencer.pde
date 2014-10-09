@@ -1,7 +1,7 @@
 import ddf.minim.*;
 import ddf.minim.signals.*;
 
-int timeCount=-1, Width=36, add=1;
+int timeCount=-1, Width=36, add=1, timeSpeed=6;
 ;
 boolean [][]Key=new boolean [Width][5];
 int []posX=new int[Width];
@@ -20,8 +20,9 @@ void setup() {
     for (int j=0;j<5;j++) {
       Key[i][j]=false;
     }
+    frameRate(timeSpeed);
   }
-  frameRate(6);
+
 
   minim = new Minim(this);
   out = minim.getLineOut(Minim.STEREO);
@@ -36,8 +37,8 @@ void setup() {
 
 void draw() {
   background(0, 0, 0, 50);
-
-
+  
+    frameRate(timeSpeed);
   DrawingKey();
   DrawingTimeCount();
 }
@@ -89,6 +90,8 @@ void DrawingTimeCount() {
   }
 }
 
+
+
 void mousePressed() {
 
   for (int i=0;i<Width;i++) {
@@ -120,6 +123,20 @@ void keyPressed() {
       for (int j=0;j<5;j++) {
         Key[i][j]=false;
       }
+    }
+  }
+
+  if (key==UP) {
+    timeSpeed++;
+    if (timeSpeed>60) {
+      timeSpeed=60;
+    }
+  }
+
+  if (key==DOWN) {
+    timeSpeed--;
+    if (timeSpeed<1) {
+      timeSpeed=1;
     }
   }
 }
