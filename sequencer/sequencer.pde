@@ -37,20 +37,26 @@ void setup() {
 
 void draw() {
   background(0, 0, 0, 50);
-  
-    frameRate(timeSpeed);
+
+  frameRate(timeSpeed);
   DrawingKey();
   DrawingTimeCount();
 }
 
 void DrawingKey() {
+
   for (int i = 0; i < Width; i++ ) {
     for (int j = 0 ; j < 5 ; j++ ) {
+
       posX[i]=i*50;
       posY[j]=j*50;
+
       if ( Key[i][j] ) {
+
         fill(0, 255, 255);
+
         if (posX[i]==50*timeCount) {
+
           if (!playstop) {
             if (j==0)out.addSignal(wave1);
             else if (j==1)out.addSignal(wave2);
@@ -61,8 +67,11 @@ void DrawingKey() {
         }
       }
       else {
+
         fill(0, 0, 0, 50);
+
         if (!playstop) {
+
           if (j==0)out.removeSignal(wave1);
           else if (j==1)out.removeSignal(wave2);
           else if (j==2)out.removeSignal(wave3);
@@ -70,13 +79,17 @@ void DrawingKey() {
           else if (j==4)out.removeSignal(wave5);
         }
       }
+
       rect(posX[i], posY[j], 50, 50 );
     }
   }
 }
 
+
 void DrawingTimeCount() {
+
   if (playstart) {
+
     fill(255, 0, 0, 125);
     rect(50*timeCount, 0, 50, 250);
 
@@ -85,7 +98,9 @@ void DrawingTimeCount() {
       timeCount=0;
     }
   }
+
   else {
+
     timeCount=-1;
   }
 }
@@ -96,6 +111,7 @@ void mousePressed() {
 
   for (int i=0;i<Width;i++) {
     for (int j=0;j<5;j++) {
+
       if (posX[i]<mouseX&&
         posX[i]+50>mouseX&&
         posY[j]<mouseY&&
@@ -103,41 +119,51 @@ void mousePressed() {
 
         Key[i][j]=!Key[i][j];
       }
+      
     }
   }
 }
 
 void keyPressed() {
 
-  if (key=='p') {
+  switch(keyCode) {
+
+  case 80:
 
     playstart=!playstart;
     add=1;
-  }
-  if (key=='m') {
+    break;
+
+  case 77:
+
     playstop=!playstop;
     add=1-add;
-  }
-  if (key=='r') {
+    break;
+
+  case 82:
+
     for (int i=0;i<Width;i++) {
       for (int j=0;j<5;j++) {
         Key[i][j]=false;
       }
     }
-  }
+    break;
 
-  if (key==UP) {
+  case UP:
+
     timeSpeed++;
     if (timeSpeed>60) {
       timeSpeed=60;
     }
-  }
+    break;
 
-  if (key==DOWN) {
+  case DOWN :
+
     timeSpeed--;
     if (timeSpeed<1) {
       timeSpeed=1;
     }
+    break;
   }
 }
 
