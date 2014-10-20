@@ -6,11 +6,11 @@ int timeCount=-1, Width=36, add=1, timeSpeed=6;
 boolean [][]Key=new boolean [Width][5];
 int []posX=new int[Width];
 int []posY=new int[5];
+SineWave []wave=new SineWave[5];
 boolean playstart=false, playstop=false;
 
 Minim minim;
 AudioOutput out;
-SineWave wave1, wave2, wave3, wave4, wave5;
 
 
 void setup() {
@@ -26,11 +26,11 @@ void setup() {
 
   minim = new Minim(this);
   out = minim.getLineOut(Minim.STEREO);
-  wave1 = new SineWave(523.23, 0.5, out.sampleRate());
-  wave2 = new SineWave(587.34, 0.5, out.sampleRate());
-  wave3 = new SineWave(659.25, 0.5, out.sampleRate());
-  wave4 = new SineWave(783.98, 0.5, out.sampleRate());
-  wave5 = new SineWave(879.99, 0.5, out.sampleRate());
+  wave[0] = new SineWave(523.23, 0.5, out.sampleRate());
+  wave[1] = new SineWave(587.34, 0.5, out.sampleRate());
+  wave[2]= new SineWave(659.25, 0.5, out.sampleRate());
+  wave[3]= new SineWave(783.98, 0.5, out.sampleRate());
+  wave[4]= new SineWave(879.99, 0.5, out.sampleRate());
 }
 
 
@@ -58,11 +58,11 @@ void DrawingKey() {
         if (posX[i]==50*timeCount) {
 
           if (!playstop) {
-            if (j==0)out.addSignal(wave1);
-            else if (j==1)out.addSignal(wave2);
-            else if (j==2)out.addSignal(wave3);
-            else if (j==3)out.addSignal(wave4);
-            else if (j==4)out.addSignal(wave5);
+            if (j==0)out.addSignal(wave[0]);
+            else if (j==1)out.addSignal(wave[1]);
+            else if (j==2)out.addSignal(wave[2]);
+            else if (j==3)out.addSignal(wave[3]);
+            else if (j==4)out.addSignal(wave[4]);
           }
         }
       }
@@ -72,11 +72,11 @@ void DrawingKey() {
 
         if (!playstop) {
 
-          if (j==0)out.removeSignal(wave1);
-          else if (j==1)out.removeSignal(wave2);
-          else if (j==2)out.removeSignal(wave3);
-          else if (j==3)out.removeSignal(wave4);
-          else if (j==4)out.removeSignal(wave5);
+          if (j==0)out.removeSignal(wave[0]);
+          else if (j==1)out.removeSignal(wave[1]);
+          else if (j==2)out.removeSignal(wave[2]);
+          else if (j==3)out.removeSignal(wave[3]);
+          else if (j==4)out.removeSignal(wave[4]);
         }
       }
 
