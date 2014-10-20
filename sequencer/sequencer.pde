@@ -126,7 +126,6 @@ void mousePressed() {
         posY[j]+50>mouseY) {
 
         Key[i][j]=1-Key[i][j];
-        
       }
     }
   }
@@ -169,7 +168,7 @@ void keyPressed() {
     }
     saveStrings("data.txt", saveKey);
     break;
-    
+
   case 76:
     int l=0;
     for (int i=0;i<Width*5;i++) {
@@ -179,15 +178,8 @@ void keyPressed() {
       for (int j=0;j<5;j++) {
 
         loadKey[i][j]=tmp[l];
-        iKey[i][j]= int(loadKey[i][j]);
+        Key[i][j]= int(loadKey[i][j]);
         l++;
-
-        if (iKey[i][j]==1) {
-          Key[i][j]=1;
-        }
-        else {
-          Key[i][j]=0;
-        }
       }
     }
     break;
