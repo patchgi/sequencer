@@ -4,6 +4,10 @@ import ddf.minim.signals.*;
 int timeCount=-1, Width=36, add=1, timeSpeed=6;
 ;
 boolean [][]Key=new boolean [Width][5];
+String []saveKey=new String[Width*5];
+int [][]iKey=new int [Width][5];
+String [][]loadKey=new String [Width][5];
+String []tmp=new String[Width*5];
 int []posX=new int[Width];
 int []posY=new int[5];
 SineWave []wave=new SineWave[5];
@@ -119,7 +123,6 @@ void mousePressed() {
 
         Key[i][j]=!Key[i][j];
       }
-      
     }
   }
 }
@@ -147,6 +150,49 @@ void keyPressed() {
         Key[i][j]=false;
       }
     }
+    break;
+
+  case 9:
+    int k=0;
+
+    for (int i=0;i<Width;i++) {
+      for (int j=0;j<5;j++) {
+        if (Key[i][j]) {
+          iKey[i][j]=1;
+        }
+        else {
+          iKey[i][j]=0;
+        }
+
+        saveKey[k]=str(iKey[i][j]);
+        k++;
+      }
+    }
+    saveStrings("data.txt", saveKey);
+    break;
+  case 76:
+    int l=0;
+    for (int i=0;i<Width*5;i++) {
+      tmp=loadStrings("data.txt");
+    }
+    for (int i=0;i<Width;i++) {
+      for (int j=0;j<5;j++) {
+        loadKey[i][j]=tmp[l];
+        iKey[i][j]= int(loadKey[i][j]);
+        ;
+        l++;
+        if (iKey[i][j]==1) {
+          Key[i][j]=true;
+        }
+        else {
+          Key[i][j]=false;
+        }
+      }
+    }
+
+
+
+
     break;
 
   case UP:
