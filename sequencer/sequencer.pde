@@ -1,16 +1,19 @@
 import ddf.minim.*;
 import ddf.minim.signals.*;
 
-int timeCount=-1, Width=36, add=1, timeSpeed=6;
-;
-boolean [][]Key=new boolean [Width][5];
+int timeCount=-1, Width=32, add=1, timeSpeed=6;
+
+int [][]Key=new int [Width][5];
 String []saveKey=new String[Width*5];
-int [][]iKey=new int [Width][5];
+
 String [][]loadKey=new String [Width][5];
 String []tmp=new String[Width*5];
+
 int []posX=new int[Width];
 int []posY=new int[5];
+
 SineWave []wave=new SineWave[5];
+
 boolean playstart=false, playstop=false;
 
 Minim minim;
@@ -22,7 +25,7 @@ void setup() {
   stroke(255);
   for (int i=0;i<Width;i++) {
     for (int j=0;j<5;j++) {
-      Key[i][j]=false;
+      Key[i][j]=0;
     }
     frameRate(timeSpeed);
   }
@@ -30,6 +33,7 @@ void setup() {
 
   minim = new Minim(this);
   out = minim.getLineOut(Minim.STEREO);
+
   wave[0] = new SineWave(523.23, 0.5, out.sampleRate());
   wave[1] = new SineWave(587.34, 0.5, out.sampleRate());
   wave[2]= new SineWave(659.25, 0.5, out.sampleRate());
@@ -55,13 +59,14 @@ void DrawingKey() {
       posX[i]=i*50;
       posY[j]=j*50;
 
-      if ( Key[i][j] ) {
+      if ( Key[i][j]==1 ) {
 
         fill(0, 255, 255);
 
         if (posX[i]==50*timeCount) {
 
           if (!playstop) {
+
             if (j==0)out.addSignal(wave[0]);
             else if (j==1)out.addSignal(wave[1]);
             else if (j==2)out.addSignal(wave[2]);
@@ -104,7 +109,6 @@ void DrawingTimeCount() {
   }
 
   else {
-
     timeCount=-1;
   }
 }
@@ -121,7 +125,8 @@ void mousePressed() {
         posY[j]<mouseY&&
         posY[j]+50>mouseY) {
 
-        Key[i][j]=!Key[i][j];
+        Key[i][j]=1-Key[i][j];
+        
       }
     }
   }
@@ -147,7 +152,7 @@ void keyPressed() {
 
     for (int i=0;i<Width;i++) {
       for (int j=0;j<5;j++) {
-        Key[i][j]=false;
+        Key[i][j]=0;
       }
     }
     break;
@@ -157,19 +162,14 @@ void keyPressed() {
 
     for (int i=0;i<Width;i++) {
       for (int j=0;j<5;j++) {
-        if (Key[i][j]) {
-          iKey[i][j]=1;
-        }
-        else {
-          iKey[i][j]=0;
-        }
 
-        saveKey[k]=str(iKey[i][j]);
+        saveKey[k]=str(Key[i][j]);
         k++;
       }
     }
     saveStrings("data.txt", saveKey);
     break;
+    
   case 76:
     int l=0;
     for (int i=0;i<Width*5;i++) {
@@ -177,22 +177,19 @@ void keyPressed() {
     }
     for (int i=0;i<Width;i++) {
       for (int j=0;j<5;j++) {
+
         loadKey[i][j]=tmp[l];
         iKey[i][j]= int(loadKey[i][j]);
-        ;
         l++;
+
         if (iKey[i][j]==1) {
-          Key[i][j]=true;
+          Key[i][j]=1;
         }
         else {
-          Key[i][j]=false;
+          Key[i][j]=0;
         }
       }
     }
-
-
-
-
     break;
 
   case UP:
