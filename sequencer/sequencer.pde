@@ -208,84 +208,7 @@ void mousePressed() {
     }
   }
   else {
-    if (mouseY>0&&mouseY<50) {
-      int l=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data1.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
-
-          loadKey[i][j]=tmp[l];
-          Key[i][j]= int(loadKey[i][j]);
-          l++;
-        }
-      }
-    }
-    
-    else if(mouseY>50&&mouseY<100){
-       int q=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data2.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
-
-          loadKey[i][j]=tmp[q];
-          Key[i][j]= int(loadKey[i][j]);
-          q++;
-        }
-      }
-      
-    }
-    else if(mouseY>100&&mouseY<150){
-       int r=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data3.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
-
-          loadKey[i][j]=tmp[r];
-          Key[i][j]= int(loadKey[i][j]);
-          r++;
-        }
-      }
-      
-    }
-    else if(mouseY>150&&mouseY<200){
-       int s=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data4.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
-
-          loadKey[i][j]=tmp[s];
-          Key[i][j]= int(loadKey[i][j]);
-          s++;
-        }
-      }
-      
-    }
-    
-    else if(mouseY>200&&mouseY<250){
-       int t=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data5.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
-
-          loadKey[i][j]=tmp[t];
-          Key[i][j]= int(loadKey[i][j]);
-          t++;
-        }
-      }
-      
-    }
-    
-    
+    LoadingData();
   }
 }
 
@@ -398,6 +321,85 @@ void keyPressed() {
     }
     break;
   }
+}
+
+void LoadingData(){
+  if (mouseY>0&&mouseY<50) {
+      int l=0;
+      for (int i=0;i<Width*5;i++) {
+        tmp=loadStrings("data1.txt");
+      }
+      for (int i=0;i<Width;i++) {
+        for (int j=0;j<5;j++) {
+
+          loadKey[i][j]=tmp[l];
+          Key[i][j]= int(loadKey[i][j]);
+          l++;
+        }
+      }
+    }
+    
+    else if(mouseY>50&&mouseY<100){
+       int q=0;
+      for (int i=0;i<Width*5;i++) {
+        tmp=loadStrings("data2.txt");
+      }
+      for (int i=0;i<Width;i++) {
+        for (int j=0;j<5;j++) {
+
+          loadKey[i][j]=tmp[q];
+          Key[i][j]= int(loadKey[i][j]);
+          q++;
+        }
+      }
+      
+    }
+    else if(mouseY>100&&mouseY<150){
+       int r=0;
+      for (int i=0;i<Width*5;i++) {
+        tmp=loadStrings("data3.txt");
+      }
+      for (int i=0;i<Width;i++) {
+        for (int j=0;j<5;j++) {
+
+          loadKey[i][j]=tmp[r];
+          Key[i][j]= int(loadKey[i][j]);
+          r++;
+        }
+      }
+      
+    }
+    else if(mouseY>150&&mouseY<200){
+       int s=0;
+      for (int i=0;i<Width*5;i++) {
+        tmp=loadStrings("data4.txt");
+      }
+      for (int i=0;i<Width;i++) {
+        for (int j=0;j<5;j++) {
+
+          loadKey[i][j]=tmp[s];
+          Key[i][j]= int(loadKey[i][j]);
+          s++;
+        }
+      }
+      
+    }
+    
+    else if(mouseY>200&&mouseY<250){
+       int t=0;
+      for (int i=0;i<Width*5;i++) {
+        tmp=loadStrings("data5.txt");
+      }
+      for (int i=0;i<Width;i++) {
+        for (int j=0;j<5;j++) {
+
+          loadKey[i][j]=tmp[t];
+          Key[i][j]= int(loadKey[i][j]);
+          t++;
+        }
+      }
+      
+    }
 }
 
 void stop() {
