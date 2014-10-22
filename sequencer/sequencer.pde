@@ -194,7 +194,15 @@ void DrawingTimeCount() {
 
 void mousePressed() {
   if (mouseX<=1600) {
-    for (int i=0;i<Width;i++) {
+   selectedKey();
+  }
+  else {
+    LoadingData();
+  }
+}
+
+void selectedKey(){
+ for (int i=0;i<Width;i++) {
       for (int j=0;j<5;j++) {
 
         if (posX[i]<mouseX&&
@@ -206,10 +214,6 @@ void mousePressed() {
         }
       }
     }
-  }
-  else {
-    LoadingData();
-  }
 }
 
 void keyPressed() {
