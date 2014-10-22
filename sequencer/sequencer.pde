@@ -301,10 +301,6 @@ void keyPressed() {
     saveStrings("data5.txt", saveKey);
     break;
 
-  case 48:
-
-    break;
-
   case UP:
 
     timeSpeed++;
