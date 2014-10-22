@@ -14,7 +14,7 @@ int []posY=new int[5];
 
 SineWave []wave=new SineWave[5];
 
-boolean playstart=false, playstop=false;
+boolean playstart=false, playstop=false, photoshot=false;
 
 Minim minim;
 AudioOutput out;
@@ -26,13 +26,19 @@ PImage data4;
 PImage data5;
 
 void setup() {
-  size(1870, 250);
+  size(1870, 300);
   stroke(255);
+
   for (int i=0;i<Width;i++) {
     for (int j=0;j<5;j++) {
       Key[i][j]=0;
     }
     frameRate(timeSpeed);
+    data1=loadImage("data1.jpg");
+    data2=loadImage("data2.jpg");
+    data3=loadImage("data3.jpg");
+    data4=loadImage("data4.jpg");
+    data5=loadImage("data5.jpg");
   }
 
 
@@ -51,12 +57,31 @@ void setup() {
 void draw() {
   background(0, 0, 0, 50);
 
-
   frameRate(timeSpeed);
   DrawingKey();
   DrawingTimeCount();
   DrawingImage();
   DrawingSelectaction();
+  DrawingIcon();
+  
+}
+
+void DrawingIcon() {
+
+  if (playstart&&!playstop) {
+    fill(255);
+    triangle(100, 260, 100, 290, 125.5, 275);
+  }
+  else if (!playstart) {
+    fill(255);
+    rect(100, 260, 30, 30);
+  }
+
+  else if (playstop&&playstart) {
+    fill(255);
+    rect(100, 260, 10, 30);
+    rect(120, 260, 10, 30);
+  }
 }
 void DrawingSelectaction() {
   if (mouseX>1600) {
@@ -84,12 +109,14 @@ void DrawingSelectaction() {
 }
 
 void DrawingImage() {
-  data1=loadImage("data1.jpg");
-  data2=loadImage("data2.jpg");
-  data3=loadImage("data3.jpg");
-  data4=loadImage("data4.jpg");
-  data5=loadImage("data5.jpg");
-
+  if (photoshot) {
+    data1=loadImage("data1.jpg");
+    data2=loadImage("data2.jpg");
+    data3=loadImage("data3.jpg");
+    data4=loadImage("data4.jpg");
+    data5=loadImage("data5.jpg");
+  }
+  photoshot=false;
   image(data1, 1600, 0, 320, 50);
   image(data2, 1600, 50, 320, 50);
   image(data3, 1600, 100, 320, 50);
@@ -194,26 +221,26 @@ void DrawingTimeCount() {
 
 void mousePressed() {
   if (mouseX<=1600) {
-   selectedKey();
+    selectedKey();
   }
   else {
     LoadingData();
   }
 }
 
-void selectedKey(){
- for (int i=0;i<Width;i++) {
-      for (int j=0;j<5;j++) {
+void selectedKey() {
+  for (int i=0;i<Width;i++) {
+    for (int j=0;j<5;j++) {
 
-        if (posX[i]<mouseX&&
-          posX[i]+50>mouseX&&
-          posY[j]<mouseY&&
-          posY[j]+50>mouseY) {
+      if (posX[i]<mouseX&&
+        posX[i]+50>mouseX&&
+        posY[j]<mouseY&&
+        posY[j]+50>mouseY) {
 
-          Key[i][j]=1-Key[i][j];
-        }
+        Key[i][j]=1-Key[i][j];
       }
     }
+  }
 }
 
 void keyPressed() {
@@ -222,13 +249,15 @@ void keyPressed() {
 
   case 80:
 
-    playstart=!playstart;
+    playstart=!playstart; 
+    playstop=false;
     add=1;
     break;
 
   case 77:
 
     playstop=!playstop;
+    playstart=true;
     add=1-add;
     break;
 
@@ -239,6 +268,7 @@ void keyPressed() {
         Key[i][j]=0;
       }
     }
+
     break;
 
   case 112:
@@ -252,6 +282,7 @@ void keyPressed() {
       }
     }
     saveStrings("data1.txt", saveKey);
+    photoshot=true;
     break;
 
   case 113:
@@ -265,6 +296,7 @@ void keyPressed() {
       }
     }
     saveStrings("data2.txt", saveKey);
+    photoshot=true;
     break;
 
   case 114:
@@ -278,6 +310,7 @@ void keyPressed() {
       }
     }
     saveStrings("data3.txt", saveKey);
+    photoshot=true;
     break;
 
   case 115:
@@ -291,6 +324,7 @@ void keyPressed() {
       }
     }
     saveStrings("data4.txt", saveKey);
+    photoshot=true;
     break;
   case 116:
     int p=0;
@@ -303,6 +337,7 @@ void keyPressed() {
       }
     }
     saveStrings("data5.txt", saveKey);
+    photoshot=true;
     break;
 
   case UP:
@@ -323,83 +358,79 @@ void keyPressed() {
   }
 }
 
-void LoadingData(){
+void LoadingData() {
   if (mouseY>0&&mouseY<50) {
-      int l=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data1.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
+    int l=0;
+    for (int i=0;i<Width*5;i++) {
+      tmp=loadStrings("data1.txt");
+    }
+    for (int i=0;i<Width;i++) {
+      for (int j=0;j<5;j++) {
 
-          loadKey[i][j]=tmp[l];
-          Key[i][j]= int(loadKey[i][j]);
-          l++;
-        }
+        loadKey[i][j]=tmp[l];
+        Key[i][j]= int(loadKey[i][j]);
+        l++;
       }
     }
-    
-    else if(mouseY>50&&mouseY<100){
-       int q=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data2.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
+  }
 
-          loadKey[i][j]=tmp[q];
-          Key[i][j]= int(loadKey[i][j]);
-          q++;
-        }
-      }
-      
+  else if (mouseY>50&&mouseY<100) {
+    int q=0;
+    for (int i=0;i<Width*5;i++) {
+      tmp=loadStrings("data2.txt");
     }
-    else if(mouseY>100&&mouseY<150){
-       int r=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data3.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
+    for (int i=0;i<Width;i++) {
+      for (int j=0;j<5;j++) {
 
-          loadKey[i][j]=tmp[r];
-          Key[i][j]= int(loadKey[i][j]);
-          r++;
-        }
+        loadKey[i][j]=tmp[q];
+        Key[i][j]= int(loadKey[i][j]);
+        q++;
       }
-      
     }
-    else if(mouseY>150&&mouseY<200){
-       int s=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data4.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
+  }
+  else if (mouseY>100&&mouseY<150) {
+    int r=0;
+    for (int i=0;i<Width*5;i++) {
+      tmp=loadStrings("data3.txt");
+    }
+    for (int i=0;i<Width;i++) {
+      for (int j=0;j<5;j++) {
 
-          loadKey[i][j]=tmp[s];
-          Key[i][j]= int(loadKey[i][j]);
-          s++;
-        }
+        loadKey[i][j]=tmp[r];
+        Key[i][j]= int(loadKey[i][j]);
+        r++;
       }
-      
     }
-    
-    else if(mouseY>200&&mouseY<250){
-       int t=0;
-      for (int i=0;i<Width*5;i++) {
-        tmp=loadStrings("data5.txt");
-      }
-      for (int i=0;i<Width;i++) {
-        for (int j=0;j<5;j++) {
+  }
+  else if (mouseY>150&&mouseY<200) {
+    int s=0;
+    for (int i=0;i<Width*5;i++) {
+      tmp=loadStrings("data4.txt");
+    }
+    for (int i=0;i<Width;i++) {
+      for (int j=0;j<5;j++) {
 
-          loadKey[i][j]=tmp[t];
-          Key[i][j]= int(loadKey[i][j]);
-          t++;
-        }
+        loadKey[i][j]=tmp[s];
+        Key[i][j]= int(loadKey[i][j]);
+        s++;
       }
-      
     }
+  }
+
+  else if (mouseY>200&&mouseY<250) {
+    int t=0;
+    for (int i=0;i<Width*5;i++) {
+      tmp=loadStrings("data5.txt");
+    }
+    for (int i=0;i<Width;i++) {
+      for (int j=0;j<5;j++) {
+
+        loadKey[i][j]=tmp[t];
+        Key[i][j]= int(loadKey[i][j]);
+        t++;
+      }
+    }
+  }
 }
 
 void stop() {
