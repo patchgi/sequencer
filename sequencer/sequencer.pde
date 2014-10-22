@@ -47,9 +47,9 @@ void setup() {
 
   wave[0] = new SineWave(523.23, 0.5, out.sampleRate());
   wave[1] = new SineWave(587.34, 0.5, out.sampleRate());
-  wave[2]= new SineWave(659.25, 0.5, out.sampleRate());
-  wave[3]= new SineWave(783.98, 0.5, out.sampleRate());
-  wave[4]= new SineWave(879.99, 0.5, out.sampleRate());
+  wave[2] = new SineWave(659.25, 0.5, out.sampleRate());
+  wave[3] = new SineWave(783.98, 0.5, out.sampleRate());
+  wave[4] = new SineWave(879.99, 0.5, out.sampleRate());
 }
 
 
@@ -166,7 +166,6 @@ void DrawingKey() {
       else {
 
         fill(0, 0, 0, 50);
-
         if (!playstop) {
 
           switch(j) {
@@ -217,30 +216,54 @@ void DrawingTimeCount() {
   }
 }
 
-
-
 void mousePressed() {
+
   if (mouseX<=1600) {
+<<<<<<< HEAD
     selectedKey();
+=======
+  
+   selectedKey();
+  
+>>>>>>> origin/master
   }
   else {
+  
     LoadingData();
+    
   }
 }
 
+<<<<<<< HEAD
 void selectedKey() {
   for (int i=0;i<Width;i++) {
     for (int j=0;j<5;j++) {
+=======
+void selectedKey(){
+
+ for (int i=0;i<Width;i++) {
+      for (int j=0;j<5;j++) {
+>>>>>>> origin/master
 
       if (posX[i]<mouseX&&
         posX[i]+50>mouseX&&
         posY[j]<mouseY&&
         posY[j]+50>mouseY) {
 
+<<<<<<< HEAD
         Key[i][j]=1-Key[i][j];
       }
     }
   }
+=======
+          Key[i][j]=1-Key[i][j];
+          
+        }
+        
+      }
+    }
+    
+>>>>>>> origin/master
 }
 
 void keyPressed() {
