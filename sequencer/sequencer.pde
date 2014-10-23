@@ -19,11 +19,7 @@ boolean playstart=false, playstop=false, photoshot=false;
 Minim minim;
 AudioOutput out;
 
-PImage data1;
-PImage data2;
-PImage data3;
-PImage data4;
-PImage data5;
+PImage []data=new PImage[5];
 
 void setup() {
   size(1870, 300);
@@ -34,11 +30,11 @@ void setup() {
       Key[i][j]=0;
     }
     frameRate(timeSpeed);
-    data1=loadImage("data1.jpg");
-    data2=loadImage("data2.jpg");
-    data3=loadImage("data3.jpg");
-    data4=loadImage("data4.jpg");
-    data5=loadImage("data5.jpg");
+    data[0]=loadImage("data1.jpg");
+    data[1]=loadImage("data2.jpg");
+    data[2]=loadImage("data3.jpg");
+    data[3]=loadImage("data4.jpg");
+    data[4]=loadImage("data5.jpg");
   }
 
 
@@ -63,7 +59,6 @@ void draw() {
   DrawingImage();
   DrawingSelectaction();
   DrawingIcon();
-  
 }
 
 void DrawingIcon() {
@@ -110,18 +105,16 @@ void DrawingSelectaction() {
 
 void DrawingImage() {
   if (photoshot) {
-    data1=loadImage("data1.jpg");
-    data2=loadImage("data2.jpg");
-    data3=loadImage("data3.jpg");
-    data4=loadImage("data4.jpg");
-    data5=loadImage("data5.jpg");
+    data[0]=loadImage("data1.jpg");
+    data[1]=loadImage("data2.jpg");
+    data[2]=loadImage("data3.jpg");
+    data[3]=loadImage("data4.jpg");
+    data[4]=loadImage("data5.jpg");
   }
   photoshot=false;
-  image(data1, 1600, 0, 320, 50);
-  image(data2, 1600, 50, 320, 50);
-  image(data3, 1600, 100, 320, 50);
-  image(data4, 1600, 150, 320, 50);
-  image(data5, 1600, 200, 320, 50);
+  for (int i=0;i<data.length;i++) {
+    image(data[i], 1600, i*50, 320, 50);
+  }
 }
 
 void DrawingKey() {
@@ -219,53 +212,30 @@ void DrawingTimeCount() {
 void mousePressed() {
 
   if (mouseX<=1600) {
-<<<<<<< HEAD
+
+
     selectedKey();
-=======
-  
-   selectedKey();
-  
->>>>>>> origin/master
   }
   else {
-  
+
     LoadingData();
-    
   }
 }
 
-<<<<<<< HEAD
+
 void selectedKey() {
   for (int i=0;i<Width;i++) {
     for (int j=0;j<5;j++) {
-=======
-void selectedKey(){
-
- for (int i=0;i<Width;i++) {
-      for (int j=0;j<5;j++) {
->>>>>>> origin/master
-
       if (posX[i]<mouseX&&
         posX[i]+50>mouseX&&
         posY[j]<mouseY&&
         posY[j]+50>mouseY) {
 
-<<<<<<< HEAD
         Key[i][j]=1-Key[i][j];
       }
     }
   }
-=======
-          Key[i][j]=1-Key[i][j];
-          
-        }
-        
-      }
-    }
-    
->>>>>>> origin/master
 }
-
 void keyPressed() {
 
   switch(keyCode) {
